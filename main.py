@@ -90,50 +90,6 @@ async def signup(id, msg=None):
   db["users"] = users
   return
       
-'''
-# DMs the user for some info to get them set up
-async def signup(id):
-  await user.send("Hi and welcome, let's get you set up with TravelCats!")
-  user = User()
-  db["users"][id] = user
-  user.expecting = "birth_year"
-  # user.cat = Cat.randomCat()
-  await user.send("First, when were you born?")
-
-# Follow up on the questions
-async def followup(id):
-  users = db["users"]
-  if id in users.keys():
-    # Check if user is already in database
-    user = users[id]
-    expecting, info = user.expecting, user.info
-
-    if expecting == "birth_year" and is_int(msg):
-      info["birth_year"] = int(msg)
-      expecting = "major"
-      db["users"] = users
-      await user.send("What is your major?")
-
-    elif expecting == "major" and msg in major_list:
-      info["major"] = msg
-      expecting = "interst"
-      db["users"] = users
-      await user.send("Which genders (if any) are you interested in meeting?")
-
-    elif expecting == "interest" and msg in interest_list:
-      info["interest"] = msg
-      expecting = None
-      db["users"] = users
-      await user.send("You're all set!")
-
-    # elif expecting == "personality" and msg in personality_list:
-    #   info["personality"] = msg
-
-    else:
-      await user.send("Invalid response, please try again.")
-
-    db["users"] = users
-'''
 
 @client.event
 async def on_ready():
