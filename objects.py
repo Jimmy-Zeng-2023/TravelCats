@@ -37,6 +37,9 @@ class User:
   def toJson(self):
     return json.dumps(self.__dict__)
 
+  def drawCat(self):
+    return "A {} cat with a {} hat in a {} outfit.".format(self.color, self.hat, self.outfit)
+
 
 class Cat:
   def __init__(self, color="white", hat="cowboy", outfit="cowboy"):

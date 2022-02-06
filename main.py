@@ -44,16 +44,16 @@ async def signup(id, msg=None):
     my_user.expecting = "birth_year"
 
     new_str= my_user.toJson()
-    print("new update:", new_str)
+    
     users[my_key] =new_str
-    print("new_user thingy", users[my_key])
+    
     #check here if save to json
     new_user = User.fromJson(users[my_key])
-    print("new user pulled", new_user)
+    
 
 
     db["user"] = users
-    print_db()
+    
     await id.send("First, when were you born?")
 
 
@@ -116,17 +116,37 @@ async def on_message(message):
     words = rest.split()
     keyword = words[0]
 
+    help_msg = '''
+```
+List of Commands for TravelCats
+tc!help - displays this message
+tc!join - join the game!
+tc!visit <place> - make your cat go towards a location
+tc!cat - View your cat
+tc!inv - View your inventory
+```
+    '''
+
     if keyword == "help":
-      await message.channel.send("This is not a helpful message!")
+      await message.channel.send(help_msg)
     elif keyword == "join":
       # await signup(message.author) # DM them for more information
       await message.channel.send("I have sent you a message, please check your DMs!")
       await signup(message.author)
 
     elif keyword == "visit":
-      pass
+      dest = words[1]
+      await message.channel.send("Setting your Cat's destination to {}!".format(dest.title()))
+      
     elif keyword == "cat":
-      pass
+      users = db["users"]
+      my_key = str(message.author)
+      # if user not in database, add them
+      if my_key in users.keys():
+        my_user = User.fromJson(users[my_key])
+        cat = my_user.drawCat()
+        await message.channel.send(cat)
+
     elif keyword == "inv":
       pass
 
